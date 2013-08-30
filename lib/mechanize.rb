@@ -486,6 +486,7 @@ class Mechanize
         form.enctype = 'multipart/form-data'
         ul = Form::FileUpload.new({'name' => k.to_s},::File.basename(v.path))
         ul.file_data = v.read
+        ul.mime_type = WEBrick::HTTPUtils.mime_type(v.file_name, WEBrick::HTTPUtils::DefaultMimeTypes)
         form.file_uploads << ul
       else
         form.fields << Form::Field.new({'name' => k.to_s},v)
